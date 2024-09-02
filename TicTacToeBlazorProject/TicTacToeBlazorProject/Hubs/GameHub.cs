@@ -12,11 +12,11 @@ namespace TicTacToeBlazorProject.Hubs
         {
             Console.WriteLine
                 ($"Player Id: '{Context.ConnectionId}' connected.");
-            await Clients.Caller.SendAsync("Rooms", _rooms);
-            
-            return base.OnConnectedAsync();
+            await Clients
+                .Caller
+                .SendAsync(
+                "Rooms",
+                _rooms.OrderBy(r => r.RoomName));
         }
-
-
     }
 }

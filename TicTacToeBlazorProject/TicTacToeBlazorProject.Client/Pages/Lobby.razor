@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using TicTacToeBlazorProject.Shared
 @inject NavigationManager NavigationManager
 @rendermode @(new InteractiveWebAssemblyRenderMode(false))
 
@@ -13,6 +14,12 @@
             .WithUrl(NavigationManager.ToAbsoluteUri("/gamehub"))
             .Build();
 
-            await _hubConnection.StartAsync();
+        _hubConnection.On<List<GameRoom>>("Rooms", (roomsList) =>
+        {
+            Console.WriteLine($"Rooms. Count = {roomsList.Count}");
+
+        });
+
+        await _hubConnection.StartAsync();
     }
 }

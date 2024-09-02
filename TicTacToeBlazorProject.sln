@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeBlazorProject", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeBlazorProject.Client", "TicTacToeBlazorProject\TicTacToeBlazorProject.Client\TicTacToeBlazorProject.Client.csproj", "{92F2E4D0-76F0-4168-AAC6-E0A9C16B9934}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeBlazorProject.Shared", "TicTacToeBlazorProject.Shared\TicTacToeBlazorProject.Shared.csproj", "{56D547A5-E7AE-4E91-B5D6-7E46CAFCDA80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{92F2E4D0-76F0-4168-AAC6-E0A9C16B9934}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F2E4D0-76F0-4168-AAC6-E0A9C16B9934}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F2E4D0-76F0-4168-AAC6-E0A9C16B9934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D547A5-E7AE-4E91-B5D6-7E46CAFCDA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D547A5-E7AE-4E91-B5D6-7E46CAFCDA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D547A5-E7AE-4E91-B5D6-7E46CAFCDA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D547A5-E7AE-4E91-B5D6-7E46CAFCDA80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

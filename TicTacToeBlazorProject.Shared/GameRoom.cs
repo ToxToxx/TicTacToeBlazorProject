@@ -8,5 +8,8 @@ namespace TicTacToeBlazorProject.Shared
 {
     public class GameRoom
     {
+        public string RoomId { get; set; }
+        public string RoomName { get; set; }
+
     }
 }
