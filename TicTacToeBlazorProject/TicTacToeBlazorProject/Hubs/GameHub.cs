@@ -22,6 +22,11 @@ namespace TicTacToeBlazorProject.Hubs
             var room = new GameRoom(roomId, name);
             _rooms.Add(room);
 
+            var newPlayer = new Player
+                (Context.ConnectionId, playerName);
+
+            room.TryAddPlayer(newPlayer);
+
             await Clients.All
                 .SendAsync("Rooms",
                 _rooms.OrderBy(r => r.RoomName));
