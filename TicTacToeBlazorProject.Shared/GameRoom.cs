@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace TicTacToeBlazorProject.Shared
 {
-    public class GameRoom
+    public class GameRoom(string roomId, string roomName)
     {
-        public string RoomId { get; set; }
-        public string RoomName { get; set; }
-
-        public GameRoom(string roomId, string roomName)
-        {
-            RoomId = roomId;
-            RoomName = roomName;
-        }
-
+        public string RoomId { get; set; } = roomId;
+        public string RoomName { get; set; } = roomName;
     }
 }
