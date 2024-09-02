@@ -13,7 +13,7 @@
             .WithUrl(NavigationManager.ToAbsoluteUri("/gamehub"))
             .Build();
 
-
+            await _hubConnection.StartAsync();
     }
 
 }
