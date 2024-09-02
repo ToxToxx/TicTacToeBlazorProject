@@ -11,5 +11,11 @@ namespace TicTacToeBlazorProject.Shared
         public string RoomId { get; set; }
         public string RoomName { get; set; }
 
+        public GameRoom(string roomId, string roomName)
+        {
+            RoomId = roomId;
+            RoomName = roomName;
+        }
+
     }
 }
