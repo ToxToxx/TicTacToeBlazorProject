@@ -35,7 +35,7 @@
         hubConnection.On<List<GameRoom>>("Rooms", (roomsList) =>
         {
             Console.WriteLine($"Rooms. Count = {roomsList.Count}");
-
+            rooms = roomsList;
         });
 
         await hubConnection.StartAsync();
@@ -61,7 +61,11 @@
 
         if(joinedRoom is not null)
         {
-            
+            currentRoom = joinedRoom;
+        }
+        else
+        {
+            Console.WriteLine("Room is full or does not exist");
         }
     }
 }
