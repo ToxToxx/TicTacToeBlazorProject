@@ -9,6 +9,15 @@
 <input @bind="currentRoomName" placeholder="Room Name" />
 <button @onclick="CreateRoom"> Create Room </button>
 
+<h3>Rooms: </h3>
+<ul>
+    @foreach (var room in rooms)
+    {
+        <li>@room.RoomName <button @onclick="() => JoinRoom(room.RoomId)">
+            Join
+        </button></li>
+    }
+</ul>
 
 @code {
     private HubConnection? hubConnection;
@@ -38,8 +47,21 @@
         if (hubConnection is null) return;
 
         currentRoom = await hubConnection
-        .InvokeAsync<GameRoom>("CreateRoom",
-        currentRoomName,
-        playerName);
+        .InvokeAsync<GameRoom>
+        ("CreateRoom", currentRoomName,playerName);
+    }
+
+    private async Task JoinRoom(string roomId)
+    {
+        if (hubConnection is null) return;
+
+        var joinedRoom = await hubConnection.
+        InvokeAsync<GameRoom>
+        ("JoinRoom", roomId, playerName);
+
+        if(joinedRoom is not null)
+        {
+            
+        }
     }
 }
