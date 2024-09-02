@@ -5,8 +5,16 @@
 
 <h3>Lobby</h3>
 
+<input @bind="_playerName" placeholder="Player Name"/>
+<input @bind="_currentRoomName" placeholder="Room Name"/>
+<button @onclick="CreateRoom"> Create Room </button>
+
 @code {
     private HubConnection? _hubConnection;
+    private string _playerName = string.Empty;
+    private string _currentRoomName = string.Empty;
+    private GameRoom? _currentRoom;
+    private List<GameRoom> rooms = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -21,5 +29,16 @@
         });
 
         await _hubConnection.StartAsync();
+    }
+
+
+    private async Task CreateRoom()
+    {
+        if (_hubConnection is null) return;
+
+        _currentRoom = await _hubConnection
+        .InvokeAsync<GameRoom>("CreateRoom",
+        _currentRoomName,
+        _playerName);
     }
 }
