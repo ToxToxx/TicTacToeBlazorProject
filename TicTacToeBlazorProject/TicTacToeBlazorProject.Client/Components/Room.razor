@@ -13,6 +13,19 @@
         <h4> Waiting for the other to start the game...</h4>
     }
 
+    if (CurrentRoom.Game.GameOver 
+    && !CurrentRoom.Game.IsDraw)
+    {
+        <h4> Game Over! Winner: @CurrentRoom.Game.Winner</h4>
+    }
+
+    if (CurrentRoom.Game.GameOver
+    && CurrentRoom.Game.IsDraw)
+    {
+        <h4> Draw!</h4>
+    }
+
+
     if((!CurrentRoom.Game.GameStarted || CurrentRoom.Game.GameOver) 
     && CurrentRoom.Game.PlayerXId == myPlayerId 
     && CurrentRoom.Players.Count == 2)
@@ -24,6 +37,27 @@
     {
         <h4>It's @CurrentRoom.Game.CurrentPlayerSymbol Turn</h4>
         <span> Currently playing: @CurrentRoom.Players[0].Name (x) || @CurrentRoom.Players[1].Name (o)</span>
+        
+        <table class="tic-tac-toe">
+            @for(int row = 0; row < 3; row++)
+            {
+                <tr>
+                    @for(int col = 0; col < 3; col++)
+                    {
+                        var r = row;
+                        var c = col;
+                        <td @onclick="() => MakeMove(r,c)">
+                            @CurrentRoom.Game.Board[r][c]
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+
+        @if(!IsMyTurn() && !CurrentRoom.Game.GameOver)
+        {
+            <p>It's other player turn</p>
+        }
     }
 }
 
