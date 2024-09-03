@@ -78,7 +78,9 @@ namespace TicTacToeBlazorProject.Hubs
                 && room.Game.MakeMove(row, col, playerId))
             {
                 room.Game.Winner = room.Game.CheckWinner();
-                room.Game.IsDraw = room.Game.CheckDraw();
+                room.Game.IsDraw = room.Game.CheckDraw()
+                    && string.IsNullOrEmpty(room.Game.Winner);
+
                 if(!string.IsNullOrEmpty(room.Game.Winner)
                     || room.Game.IsDraw)
                 {
