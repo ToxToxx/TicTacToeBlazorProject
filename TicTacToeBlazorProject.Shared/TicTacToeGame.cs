@@ -48,5 +48,21 @@ namespace TicTacToeBlazorProject.Shared
                 Board.Add(row);
             }
         }
+
+        public void TogglePlayer()
+        {
+            CurrentPlayerId = CurrentPlayerId 
+                == PlayerXId ? PlayerOId : PlayerXId;
+        }
+
+        public bool MakeMove(int row, int col, string playerId)
+        {
+            if (playerId != CurrentPlayerId
+                || row < 0 || row >= 3
+                || col < 0 || col >= 3
+                || Board[row][col] != string.Empty)
+            { return false; }
+
+        }
     }
 }
