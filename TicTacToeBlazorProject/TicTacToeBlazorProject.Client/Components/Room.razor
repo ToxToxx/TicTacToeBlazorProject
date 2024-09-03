@@ -12,6 +12,19 @@
     {
         <h4> Waiting for the other to start the game...</h4>
     }
+
+    if((!CurrentRoom.Game.GameStarted || CurrentRoom.Game.GameOver) 
+    && CurrentRoom.Game.PlayerXId == myPlayerId 
+    && CurrentRoom.Players.Count == 2)
+    {
+        <button @onclick="StartGame"> Start Game </button>
+    }
+
+    if (CurrentRoom.Game.GameStarted)
+    {
+        <h4>It's @CurrentRoom.Game.CurrentPlayerSymbol Turn</h4>
+        <span> Currently playing: @CurrentRoom.Players[0].Name (x) || @CurrentRoom.Players[1].Name (o)</span>
+    }
 }
 
 @code {
