@@ -8,11 +8,16 @@ namespace TicTacToeBlazorProject.Shared
 {
     public class GameRoom(string roomId, string roomName)
     {
+        //room data
         public string RoomId { get; set; } = roomId;
         public string RoomName { get; set; } = roomName;
+        //list of current players in room
         public List<Player> Players { get; set; } = new();
+
+        //game ref
         public TicTacToeGame Game { get; set; } = new();
 
+        //Adding a player
         public bool TryAddPlayer(Player newPlayer) 
         {
             if(Players.Count < 2 && 
