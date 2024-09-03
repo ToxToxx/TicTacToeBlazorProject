@@ -25,6 +25,16 @@ namespace TicTacToeBlazorProject.Shared
             InitializeBoard();
         }
 
+        public void StartGame()
+        {
+            CurrentPlayerId = PlayerXId;
+            GameStarted = true;
+            GameOver = false;
+            Winner = string.Empty;
+            IsDraw = false;
+            InitializeBoard();
+        }
+
         private void InitializeBoard()
         {
             Board.Clear();
