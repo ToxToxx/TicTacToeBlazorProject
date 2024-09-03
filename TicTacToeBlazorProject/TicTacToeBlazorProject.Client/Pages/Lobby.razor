@@ -25,7 +25,9 @@
 }
 else
 {
-    <Room />
+    <CascadingValue Value="hubConnection">
+        <Room CurrentRoom="currentRoom" />
+    </CascadingValue>
 }
 
 @code {
@@ -45,6 +47,7 @@ else
         {
             Console.WriteLine($"Rooms. Count = {roomsList.Count}");
             rooms = roomsList;
+            StateHasChanged();
         });
 
         await hubConnection.StartAsync();

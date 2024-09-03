@@ -39,19 +39,16 @@ namespace TicTacToeBlazorProject.Hubs
 
         public async Task<GameRoom?> JoinRoom(string roomId, string playerName)
         {
-            var room = _rooms
-                .FirstOrDefault(r => r.RoomId == roomId);
+            var room = _rooms.FirstOrDefault(r => r.RoomId == roomId);
             if (room is not null)
             {
-                var newPlayer = 
-                    new Player(Context.ConnectionId, playerName);
+                var newPlayer = new Player(Context.ConnectionId, playerName);
                 if (room.TryAddPlayer(newPlayer))
                 {
                     await Groups
                         .AddToGroupAsync(Context.ConnectionId, roomId);
-                    await Clients
-                        .Group(roomId)
-                        .SendAsync($"{playerName} joined room");
+                    await Clients.Group(roomId)
+                        .SendAsync("PlayerJoined", newPlayer);
 
                     return room;
                 }
