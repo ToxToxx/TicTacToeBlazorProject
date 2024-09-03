@@ -4,15 +4,18 @@
     if (CurrentRoom.Players.Count < 2)
     {
         <h4>Waiting for another player to join...</h4>
-        <h4>@CurrentRoom.Players.Count : players</h4>
+
     }
-    else
+    if(!CurrentRoom.Game.GameStarted 
+    && CurrentRoom.Game.PlayerXId != myPlayerId
+    && CurrentRoom.Players.Count == 2)
     {
-        <h4>Game Ready!</h4>
+        <h4> Waiting for the other to start the game...</h4>
     }
 }
 
 @code {
+    private string? myPlayerId;
     [CascadingParameter]
     public HubConnection? HubConnection { get; set; }
     [Parameter]
@@ -25,6 +28,8 @@
             || HubConnection.ConnectionId is null)
             return;
 
+        myPlayerId = HubConnection.ConnectionId;
+
         HubConnection.On<Player>("PlayerJoined", player =>
         {
             if (CurrentRoom is not null)
@@ -33,5 +38,19 @@
                 InvokeAsync(StateHasChanged);
             }
         });
+
+        HubConnection.On<GameRoom>("UpdateGame", serverRoom =>
+        {
+            CurrentRoom = serverRoom;
+            StateHasChanged();
+        });
+    }
+
+    async Task StartGame()
+    {
+        if (HubConnection is null || CurrentRoom is null) return;
+
+        await HubConnection
+        .InvokeAsync("StartGame", CurrentRoom.RoomId);
     }
 }
