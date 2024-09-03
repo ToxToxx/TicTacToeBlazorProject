@@ -33,5 +33,21 @@ namespace TicTacToeBlazorProject.Hubs
 
             return room;
         }
+
+        public async Task<GameRoom?> JoinRoom(string roomId, string playerName)
+        {
+            var room = _rooms
+                .FirstOrDefault(r => r.RoomId == roomId);
+            if (room is not null)
+            {
+                var newPlayer = 
+                    new Player(Context.ConnectionId, playerName);
+                if (room.TryAddPlayer(newPlayer))
+                {
+                    return room;
+                }
+            }
+            return null;
+        }
     }
 }
