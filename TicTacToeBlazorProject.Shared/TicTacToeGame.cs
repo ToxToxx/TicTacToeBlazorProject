@@ -105,6 +105,12 @@ namespace TicTacToeBlazorProject.Shared
             return String.Empty;
         }
 
-
+        public bool CheckDraw()
+        {
+            return IsDraw =
+                Board.All(row => 
+                row.All(cell => 
+                !string.IsNullOrEmpty(cell)));
+        }
     }
 }
