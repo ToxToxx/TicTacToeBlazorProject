@@ -63,6 +63,48 @@ namespace TicTacToeBlazorProject.Shared
                 || Board[row][col] != string.Empty)
             { return false; }
 
+            Board[row][col] = CurrentPlayerSymbol;
+            TogglePlayer();
+            return true;
         }
+
+        public string CheckWinner()
+        {
+            //rows and columns
+            for(int i = 0; i < 3;i++)
+            {
+                if (!string.IsNullOrEmpty(Board[i][0]) 
+                    && Board[i][0] == Board[i][1] 
+                    && Board[i][1] == Board[i][2])
+                {
+                    return Board[i][0];
+                }
+
+                if (!string.IsNullOrEmpty(Board[0][i])
+                    && Board[0][i] == Board[1][i]
+                    && Board[1][i] == Board[2][i])
+                {
+                    return Board[0][i];
+                }
+            }
+
+            //Diagonals
+            if(!string.IsNullOrEmpty(Board[0][0]) 
+                && Board[0][0] == Board[1][1]
+                && Board[1][1] == Board[2][2])
+            {
+                return Board[0][0];
+            }
+            if (!string.IsNullOrEmpty(Board[0][2])
+                && Board[0][2] == Board[1][1]
+                && Board[1][1] == Board[2][0])
+            {
+                return Board[0][2];
+            }
+
+            return String.Empty;
+        }
+
+
     }
 }
