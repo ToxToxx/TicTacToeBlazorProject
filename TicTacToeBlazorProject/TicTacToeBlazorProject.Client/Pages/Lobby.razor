@@ -3,32 +3,40 @@
 @inject NavigationManager NavigationManager
 @rendermode @(new InteractiveWebAssemblyRenderMode(false))
 
-<h3>Lobby of Tic Tac Toe Game</h3>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-white">
+    <div class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 text-black">
+        <h3 class="text-3xl font-bold mb-6 text-center text-indigo-700">Lobby of Tic Tac Toe Game</h3>
 
-@if(currentRoom is null) {
-
-    <input @bind="playerName" placeholder="Player Name" />
-    <input @bind="currentRoomName" placeholder="Room Name" />
-    <button @onclick="CreateRoom"> Create Room </button>
-
-    <h3>Rooms: </h3>
-    <ul>
-        @foreach (var room in rooms)
+        @if (currentRoom is null)
         {
-            <li>
-                @room.RoomName <button @onclick="() => JoinRoom(room.RoomId)">
-                    Join
-                </button>
-            </li>
+
+            <div class="mb-4">
+                <input @bind="playerName" placeholder="Player Name" class="border rounded px-3 py-2 mb-2 w-full text-black" />
+                <input @bind="currentRoomName" placeholder="Room Name" class="border rounded px-3 py-2 mb-2 w-full text-black" />
+                <div class="text-center">
+                    <button @onclick="CreateRoom" class="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Create Room</button>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-medium mb-2 text-center text-indigo-700">Rooms:</h3>
+            <ul class="space-y-2">
+                @foreach (var room in rooms)
+                {
+                    <li class="flex justify-between items-center bg-gray-200 p-2 rounded-lg shadow">
+                        <span class="font-semibold text-indigo-700">@room.RoomName</span>
+                        <button @onclick="() => JoinRoom(room.RoomId)" class="px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600">Join</button>
+                    </li>
+                }
+            </ul>
         }
-    </ul>
-}
-else
-{
-    <CascadingValue Value="hubConnection">
-        <Room CurrentRoom="currentRoom" />
-    </CascadingValue>
-}
+        else
+        {
+            <CascadingValue Value="hubConnection">
+                <Room CurrentRoom="currentRoom" />
+            </CascadingValue>
+        }
+    </div>
+</div>
 
 @code {
     private HubConnection? hubConnection;

@@ -1,62 +1,60 @@
 ﻿@if (CurrentRoom is not null)
 {
-    <h3>@CurrentRoom.RoomName</h3>
-    if (CurrentRoom.Players.Count < 2)
-    {
-        <h4>Waiting for another player to join...</h4>
+    <h3 class="text-3xl font-bold mb-6 text-center text-indigo-700">@CurrentRoom.RoomName</h3>
 
-    }
-    if(!CurrentRoom.Game.GameStarted 
-    && CurrentRoom.Game.PlayerXId != myPlayerId
-    && CurrentRoom.Players.Count == 2)
+    @if (CurrentRoom.Players.Count < 2)
     {
-        <h4> Waiting for the other to start the game...</h4>
+        <h4 class="text-lg text-gray-600 text-center">Waiting for another player to join...</h4>
     }
 
-    if (CurrentRoom.Game.GameOver 
-    && !CurrentRoom.Game.IsDraw)
+    @if (!CurrentRoom.Game.GameStarted && CurrentRoom.Game.PlayerXId != myPlayerId && CurrentRoom.Players.Count == 2)
     {
-        <h4> Game Over! Winner: @CurrentRoom.Game.Winner</h4>
+        <h4 class="text-lg text-gray-600 text-center">Waiting for the other to start the game...</h4>
     }
 
-    if (CurrentRoom.Game.GameOver
-    && CurrentRoom.Game.IsDraw)
+    @if (CurrentRoom.Game.GameOver && !CurrentRoom.Game.IsDraw)
     {
-        <h4> Draw!</h4>
+        <h4 class="text-lg text-green-600 text-center">Game Over! Winner: @CurrentRoom.Game.Winner</h4>
     }
 
-
-    if((!CurrentRoom.Game.GameStarted || CurrentRoom.Game.GameOver) 
-    && CurrentRoom.Game.PlayerXId == myPlayerId 
-    && CurrentRoom.Players.Count == 2)
+    @if (CurrentRoom.Game.GameOver && CurrentRoom.Game.IsDraw)
     {
-        <button @onclick="StartGame"> Start Game </button>
+        <h4 class="text-lg text-blue-600 text-center">Draw!</h4>
     }
 
-    if (CurrentRoom.Game.GameStarted)
+    @if ((!CurrentRoom.Game.GameStarted || CurrentRoom.Game.GameOver) && CurrentRoom.Game.PlayerXId == myPlayerId && CurrentRoom.Players.Count == 2)
     {
-        <h4>It's @CurrentRoom.Game.CurrentPlayerSymbol Turn</h4>
-        <span> Currently playing: @CurrentRoom.Players[0].Name (x) || @CurrentRoom.Players[1].Name (o)</span>
-        
-        <table class="tic-tac-toe">
-            @for(int row = 0; row < 3; row++)
-            {
-                <tr>
-                    @for(int col = 0; col < 3; col++)
-                    {
-                        var r = row;
-                        var c = col;
-                        <td @onclick="() => MakeMove(r,c)">
-                            @CurrentRoom.Game.Board[r][c]
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
+        <div class="text-center mt-4">
+            <button class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" @onclick="StartGame">Start Game</button>
+        </div>
+    }
 
-        @if(!IsMyTurn() && !CurrentRoom.Game.GameOver)
+    @if (CurrentRoom.Game.GameStarted)
+    {
+        <h4 class="text-xl font-medium mb-4 text-center">It's @CurrentRoom.Game.CurrentPlayerSymbol's Turn</h4>
+        <div class="text-center mb-6 text-gray-600">Currently playing: @CurrentRoom.Players[0].Name (x) || @CurrentRoom.Players[1].Name (o)</div>
+
+        <div class="flex justify-center">
+            <table class="tic-tac-toe w-auto text-center border-collapse border border-gray-800">
+                @for (int row = 0; row < 3; row++)
+                {
+                    <tr>
+                        @for (int col = 0; col < 3; col++)
+                        {
+                            var r = row;
+                            var c = col;
+                            <td class="w-20 h-20 border border-gray-800 cursor-pointer hover:bg-gray-300 text-3xl font-bold" @onclick="() => MakeMove(r,c)">
+                                @CurrentRoom.Game.Board[r][c]
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+
+        @if (!IsMyTurn() && !CurrentRoom.Game.GameOver)
         {
-            <p>It's other player turn</p>
+            <p class="text-center text-gray-600 mt-4">It's the other player's turn</p>
         }
     }
 }
