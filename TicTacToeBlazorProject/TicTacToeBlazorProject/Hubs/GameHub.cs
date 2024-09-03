@@ -27,6 +27,9 @@ namespace TicTacToeBlazorProject.Hubs
 
             room.TryAddPlayer(newPlayer);
 
+            await Groups
+                .AddToGroupAsync(Context.ConnectionId, roomId);
+
             await Clients.All
                 .SendAsync("Rooms",
                 _rooms.OrderBy(r => r.RoomName));
@@ -44,6 +47,12 @@ namespace TicTacToeBlazorProject.Hubs
                     new Player(Context.ConnectionId, playerName);
                 if (room.TryAddPlayer(newPlayer))
                 {
+                    await Groups
+                        .AddToGroupAsync(Context.ConnectionId, roomId);
+                    await Clients
+                        .Group(roomId)
+                        .SendAsync($"{playerName} joined room");
+
                     return room;
                 }
             }
